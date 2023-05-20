@@ -14,6 +14,9 @@ class User(models.Model):
     usertype = models.CharField(max_length = 10, help_text = 'Account analyze type')            # Male, Female, ..?
     analyze_profile = models.ForeignKey(Analyze, on_delete = models.CASCADE, blank = True)
     
+    def __str__(self):
+        return self.username
+    
 class Picture(models.Model):
     url = models.TextField(help_text = 'Image url')            # Image url
     analyze_picture = models.ForeignKey(Analyze, on_delete = models.CASCADE)
