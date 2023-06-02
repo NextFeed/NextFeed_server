@@ -6,12 +6,16 @@ import requests
 import torch
 import math
 
+from datetime import datetime
+import base64
+import io
+
 from .apps import AnalyzeConfig
 
 def index(request):
     return HttpResponse("Hello, world")
 
-def CLIP_result_urls(iurls, usertype):
+def CLIP_result_urls(imgbase64s, usertype):
     input_female_features = ["a photo of a woman who is " + f for f in AnalyzeConfig.female_features]
     input_male_features = ["a photo of a man who is " + f for f in AnalyzeConfig.male_features]
     input_classes = input_female_features if usertype == 'female' else input_male_features
@@ -19,9 +23,12 @@ def CLIP_result_urls(iurls, usertype):
 
     ## Evaluate Model
     result_dicts_array = []
+    now = datetime.now()
     
-    for i in range(len(iurls)):
-        image = Image.open(requests.get(iurls[i], stream=True).raw)
+    for i in range(len(imgbase64s)):
+        imgdata = base64.b64decode(imgbase64s[i])        
+        dataBytesIO = io.BytesIO(imgdata)
+        image = Image.open(dataBytesIO)
         inputs = AnalyzeConfig.CLIP_processor(text=input_classes, images=image, return_tensors="pt", padding=True)
         outputs = AnalyzeConfig.CLIP_model(**inputs)
         logits_per_image = outputs.logits_per_image # this is the image-text similarity score
@@ -43,17 +50,11 @@ def CLIP_result_urls(iurls, usertype):
 def get_account_CLIP_result(request):
         
     body_data = json.loads(request.body)
-    profile_url = body_data.get('profile')
-    feed_urls = body_data.get('feeds')
+    profile_base64 = body_data.get('profile')
+    feed_base64 = body_data.get('feeds')
+    feed_base64.append(profile_base64)
     
-    # # When form-data.. But can we send arrays in form-data ?
-    # profile_url = request.POST.get('profile')
-    # feed_urls = request.POST.get('feeds')
-    
-    feed_urls.append(profile_url)
-    
-    result_array = CLIP_result_urls(feed_urls, body_data.get('type'))
-    # result_array = CLIP_result_urls(feed_urls, request.POST['type'])
+    result_array = CLIP_result_urls(feed_base64, body_data.get('type'))
     
     # Extracting Top 3
     feature1 = result_array[0][0]
