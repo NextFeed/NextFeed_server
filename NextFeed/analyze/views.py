@@ -37,6 +37,9 @@ def CLIP_result_urls(imgbase64s, usertype):
         # Save to `result_dicts_array`
         unsorted_dict = dict(zip(input_features, torch.round(probs[0], decimals = 3).detach().numpy()))
         result_dicts_array.append(unsorted_dict)
+        
+        # DEBUG
+        print(f'{i}th image analysis finished')
       
     return_dict = {}
     for k in result_dicts_array[0].keys():
