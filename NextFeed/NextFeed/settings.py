@@ -41,7 +41,7 @@ SECRET_KEY = get_secret_key("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['15.164.226.30']
 
 
 # Application definition
