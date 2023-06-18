@@ -12,12 +12,12 @@ class AnalyzeConfig(AppConfig):
     CLIP_model = CLIPModel.from_pretrained("openai/clip-vit-base-patch16")
     CLIP_processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch16")
     
-    male_features = ['athletic', 'fat', 'handsome', 'hot', 'fit', 'clean-cut',
+    male_features = ['athletic', 'fat', 'handsome', 'fit', 'clean',
                 'sexy', 'sculpted', 'confident', 'jokey', 'smart',
-                'stylish', 'suave', 'macho', 'masculine', 'manly', 
+                'stylish', 'suave', 'macho', 'manly', 
                 'bold', 'youthful']
     
     female_features = ['beautiful', 'cute', 'elegant', 'glamorous', 'classy', 
-                  'foxy', 'sexy', 'athletic', 'chic', 'modern', 'barbie',
-                  'attractive', 'fashionable', 'glossy', 'goddess',
-                  'glowing', 'hot', 'lovely', 'prim', 'sharp']   
+                  'foxy', 'sexy', 'athletic', 'barbie',
+                  'attractive', 'fashionable', 'goddess',
+                  'glowing', 'lovely', 'prim', 'sharp', 'pure']   
