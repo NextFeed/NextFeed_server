@@ -43,6 +43,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['15.164.226.30', '127.0.0.1']
 
+# Settings for MAX_UPLOAD_SIZE error (due to base64)
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
+
+MAX_UPLOAD_SIZE = 5242880
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 # Application definition
 
