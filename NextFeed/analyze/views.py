@@ -138,4 +138,42 @@ def get_img_CLIP_result(request):
     }
     
     return HttpResponse(json.dumps(return_json), content_type = "application/json")
+
+
+def get_imgs_CLIP_result(request):
+    body_data = json.loads(request.body)
+    imgs_base64 = body_data.get('imgs')
+
+    return_array = []
+    
+    for img_base64 in imgs_base64:
+        
+        result_array = CLIP_result_one_img(img_base64, body_data.get('type'))
+        
+        # Extracting Top 3
+        feature1 = result_array[0][0]
+        score1 = result_array[0][1]
+        feature2 = result_array[1][0]
+        score2 = result_array[1][1]
+        feature3 = result_array[2][0]
+        score3 = result_array[2][1]
+        
+        score_total = score1 + score2 + score3
+        score1 = math.floor(score1 * 100 / score_total)
+        score2 = math.floor(score2 * 100 / score_total)
+        score3 = math.floor(score3 * 100 / score_total)
+    
+        return_json = {
+            "feature1": feature1,
+            "score1": score1,
+            "feature2": feature2,
+            "score2": score2,
+            "feature3": feature3,
+            "score3": score3
+        }
+        
+        return_array.append(return_json)
+    
+    return HttpResponse(json.dumps(return_array), content_type = "application/json")    
+    
     
