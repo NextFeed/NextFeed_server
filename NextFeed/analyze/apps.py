@@ -15,7 +15,7 @@ class AnalyzeConfig(AppConfig):
     male_features = ['athletic', 'fat', 'handsome', 'hot', 'fit', 'clean-cut',
                 'sexy', 'sculpted', 'confident', 'jokey', 'smart',
                 'stylish', 'suave', 'macho', 'masculine', 'manly', 
-                'bold', 'youthful', 'brash']
+                'bold', 'youthful']
     
     female_features = ['beautiful', 'cute', 'elegant', 'glamorous', 'classy', 
                   'foxy', 'sexy', 'athletic', 'chic', 'modern', 'barbie',
