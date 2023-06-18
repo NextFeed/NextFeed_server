@@ -13,7 +13,7 @@ class AnalyzeConfig(AppConfig):
     CLIP_processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch16")
     
     male_features = ['athletic', 'fat', 'handsome', 'hot', 'fit', 'clean-cut',
-                'sexy', 'sculpted', 'confident', 'jockey', 'smart',
+                'sexy', 'sculpted', 'confident', 'jokey', 'smart',
                 'stylish', 'suave', 'macho', 'masculine', 'manly', 
                 'bold', 'youthful', 'brash']
     
